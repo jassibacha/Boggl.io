@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, redirect, session
+from flask import Flask, request, render_template, redirect, session, jsonify
+from flask_debugtoolbar import DebugToolbarExtension
 from boggle import Boggle
 
 app = Flask(__name__)
@@ -9,9 +10,20 @@ toolbar = DebugToolbarExtension(app)
 
 boggle_game = Boggle()
 
+
 @app.route('/')
 def home_page():
     """Show hompeage"""
-    boggle_game.make_board()
-    # ADD BOGGLE TO THE SESSION.... !
-    return render_template("home.html")
+    board = boggle_game.make_board()
+    session['board'] = board
+    #highscore
+    #plays
+    return render_template("home.html",board=board)
+
+@app.route('/check-word')
+def check_word():
+    """Check for the word"""
+    word = request.args['word']
+    board = session['board']
+    response = boggle_game.check_valid_word(board, word)
+    return jsonify({'result': response})

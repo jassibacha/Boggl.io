@@ -29,6 +29,12 @@ class Boggle():
 
         return board
 
+    # def display_board(self):
+    #     """Show the board"""
+    #     for row in self.board:
+    #         for cell in row:
+    #             print(f"<div class='cell'>{cell}</div>")
+
     def check_valid_word(self, board, word):
         """Check if a word is a valid word in the dictionary and/or the boggle board"""
 

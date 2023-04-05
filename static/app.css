@@ -1,0 +1,28 @@
+body {
+  background-color: #cdd4e4;
+}
+
+.board {
+  width: auto;
+}
+.board .board-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.board .board-row .cell {
+  display: flex;
+  width: 50px;
+  font-weight: bold;
+  font-size: 30px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  /* padding: 5px; */
+  margin: 5px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}/*# sourceMappingURL=app.css.map */
