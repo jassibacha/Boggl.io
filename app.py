@@ -18,7 +18,7 @@ def home_page():
     session['board'] = board
     #highscore
     #plays
-    return render_template("board.html",board=board)
+    return render_template("board.html", board=board)
 
 @app.route('/check-word', methods=['GET', 'POST'])
 def check_word():
