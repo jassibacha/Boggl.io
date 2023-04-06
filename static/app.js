@@ -9,13 +9,20 @@ async function submitForm() {
 
         const $word = $('.word');
         const word = $word.val(); // Get the guessed word
+        console.log('word:', word);
         if (!word) return; // if no word stop
 
         // check if words already has the word const, if so show an error message
 
-        const resp = await axios.post('/check-word', { word: word });
+        // const resp = await axios.post('/check-word', data: { word: word });
 
-        console.log(resp); // find the result in the data
+        const resp = await axios({
+            method: 'POST',
+            url: '/check-word',
+            data: { word: word },
+        });
+
+        console.log(resp.data.result); // find the result in the data
 
         // if goes here
         // 'not-word'
