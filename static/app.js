@@ -1,80 +1,79 @@
 class BoggleGame {
-  constructor(boardId, secs = 60) {
-    this.secs = secs; // Set game length
-    // this.showTimer()
-    // this.score = 0
-    this.words = new Set();
-    this.board = $("#" + boardId); // Set board to jQuery boardId element
+    constructor(boardId, secs = 60) {
+        this.secs = secs; // Set game length
+        // this.showTimer()
+        // this.score = 0
+        this.words = new Set();
+        this.board = $('#' + boardId); // Set board to jQuery boardId element
 
-    // Every 1000ms 'tick'
-    // this.timer = setInterval(...) //bind this.tick to this
+        // Every 1000ms 'tick'
+        // this.timer = setInterval(...) //bind this.tick to this
 
-<<<<<<< Updated upstream
-        $('#guess-form', this.board).on('submit', this.handleSubmit.bind(this));
-=======
-    $("#guess-form").on("submit", this.handleSubmit.bind(this));
-  }
-
-  // Show word in list of words
-  showWord(word) {}
-
-  // Show score in HTML
-  showScore() {}
-
-  // Show status messages
-  showMessage(msg, cls) {
-    $(".alert", this.board)
-      .text(msg)
-      .removeClass()
-      .addClass(`alert alert-${cls}`);
-  }
-
-  async handleSubmit(evt) {
-    evt.preventDefault();
-    console.log("handleSubmit called");
-    const $word = $(".word");
-    console.log($word);
-    let word = $word.val();
-    console.log(`word = ${word}`);
-
-    if (!word) return; // confirm word isn't falsy
-
-    // Make sure that the word doesn't exist in words set
-    if (this.words.has(word)) {
-      this.showMessage(`You already found ${word}, try a new one!`, "error");
-      return;
->>>>>>> Stashed changes
+        $('#guess-form').on('submit', this.handleSubmit.bind(this));
     }
-    console.log("Axios get starting");
-    // Check for the word
-    const resp = await axios
-      .get("/check-word", { params: { word: word } })
-      .then((response) => {
-        console.log(response.data);
-        if (response.data.result === "not-word") {
-          console.log("not a word");
-        } else if (response.data.result === "not-on-board") {
-          console.log("not-on-board");
-        } else {
-          console.log("found a word!");
+
+    // Show word in list of words
+    showWord(word) {}
+
+    // Show score in HTML
+    showScore() {}
+
+    // Show status messages
+    showMessage(msg, cls) {
+        $('.alert', this.board)
+            .text(msg)
+            .removeClass()
+            .addClass(`alert alert-${cls}`);
+    }
+
+    async handleSubmit(evt) {
+        evt.preventDefault();
+        console.log('handleSubmit called');
+        const $word = $('.word');
+        console.log($word);
+        let word = $word.val();
+        console.log(`word = ${word}`);
+
+        if (!word) return; // confirm word isn't falsy
+
+        // Make sure that the word doesn't exist in words set
+        if (this.words.has(word)) {
+            this.showMessage(
+                `You already found ${word}, try a new one!`,
+                'error'
+            );
+            return;
         }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        console.log('Axios get starting');
+        // Check for the word
+        const resp = await axios
+            .get('/check-word', { params: { word: word } })
+            .then((response) => {
+                console.log(response.data);
+                if (response.data.result === 'not-word') {
+                    console.log('not a word');
+                } else if (response.data.result === 'not-on-board') {
+                    console.log('not-on-board');
+                } else {
+                    console.log('found a word!');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
-    // console.log("Response Data:", resp.data);
-    // console.log("Response Data Result:", resp.data.result);
+        // console.log("Response Data:", resp.data);
+        // console.log("Response Data Result:", resp.data.result);
 
-    // if goes here
-    // if (resp.data.result === "not-word") {
-    // } else if (resp.data.result === "not-on-board") {
-    // } else {
-    // }
+        // if goes here
+        // if (resp.data.result === "not-word") {
+        // } else if (resp.data.result === "not-on-board") {
+        // } else {
+        // }
 
-    // Empty the text field and focus on it
-    $word.val("").focus();
-  }
+        // Empty the text field and focus on it
+        $word.val('').focus();
+    }
 }
 
 // async function submitForm() {

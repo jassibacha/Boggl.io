@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/static/app.css" />
   </head>
 
-<<<<<<< Updated upstream
     <body>
         {% include "header.html" %}
         <main>
@@ -66,50 +65,7 @@
                         </form>
                     </div>
                 </div>
-=======
-  <body>
-    {% include "header.html" %}
-    <main>
-      <div class="container my-5">
-        <div class="row">
-          <div class="col-sm-12">
-            {% with messages = get_flashed_messages(with_categories=true) %} {%
-            if messages %} {% for category,msg in messages %}
-            <div class="alert alert-{{category}}" role="alert">{{msg}}</div>
-            {% endfor %} {% endif %} {% endwith %}
-
-            <div class="board">
-              {% for row in session['board'] %}
-              <div class="board-row">
-                {% for cell in row %}
-                <div class="cell">{{ cell }}</div>
-                {% endfor %}
-              </div>
-              {% endfor %}
->>>>>>> Stashed changes
             </div>
-
-            <form
-              id="guess-form"
-              method="post"
-              class="add-word row mt-3 gx-3 gy-2 align-items-center justify-content-center"
-            >
-              <div class="col-auto form-floating">
-                <input
-                  type="text"
-                  class="word form-control"
-                  id="word"
-                  name="word"
-                  placeholder="Apple"
-                />
-                <label for="guess">Guess A Word</label>
-              </div>
-              <div class="col-auto">
-                <button type="submit" class="btn btn-lg btn-primary">
-                  Guess
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
