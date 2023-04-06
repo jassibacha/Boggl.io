@@ -16,9 +16,11 @@ board = boggle_game.make_board()
 def home_page():
     """Show hompeage"""
     session['board'] = board
+    highscore = session.get('highscore', 0) # if none, 0
+    numplays = session.get('numplays', 0) # if none, 0
     #highscore
     #plays
-    return render_template("board.html", board=board)
+    return render_template("board.html", board=board, highscore=highscore, numplays=numplays)
 
 @app.route('/check-word', methods=['GET', 'POST'])
 def check_word():
