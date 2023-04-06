@@ -10,20 +10,22 @@ toolbar = DebugToolbarExtension(app)
 
 boggle_game = Boggle()
 
+board = boggle_game.make_board()
 
 @app.route('/')
 def home_page():
     """Show hompeage"""
-    board = boggle_game.make_board()
     session['board'] = board
     #highscore
     #plays
-    return render_template("home.html",board=board)
+    return render_template("board.html",board=board)
 
-@app.route('/check-word', methods=['POST'])
+@app.route('/check-word', methods=['GET', 'POST'])
 def check_word():
     """Check for the word"""
-    word = request.form['word']
+    print('check word')
+    word = request.args['word']
+    word = word.lower()
     # json fix
     # data = request.get_json()
     # word = data['word']

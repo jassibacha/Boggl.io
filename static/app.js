@@ -9,7 +9,7 @@ class BoggleGame {
         // Every 1000ms 'tick'
         // this.timer = setInterval(...) //bind this.tick to this
 
-        $('.add-word', this.board).on('submit', this.handleSubmit.bind(this));
+        $('#guess-form').on('submit', this.handleSubmit.bind(this));
     }
 
     // Show word in list of words
@@ -28,6 +28,7 @@ class BoggleGame {
 
     async handleSubmit(evt) {
         evt.preventDefault();
+        console.log('handleSubmit called');
         const $word = $('.word', this.board);
         let word = $word.val();
 
@@ -41,9 +42,16 @@ class BoggleGame {
             );
             return;
         }
-
+        console.log('Axios get starting');
         // Check for the word
-        const resp = await axios.get('/check-word', { params: { word: word } });
+        const resp = await axios
+            .get('/check-word', { params: { word: word } })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         console.log('Response Data:', resp.data);
         console.log('Response Data Result:', resp.data.result);
 
