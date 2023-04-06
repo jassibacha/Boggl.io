@@ -9,7 +9,7 @@ class BoggleGame {
         // Every 1000ms 'tick'
         // this.timer = setInterval(...) //bind this.tick to this
 
-        $('#guess-form').on('submit', this.handleSubmit.bind(this));
+        $('#guess-form', this.board).on('submit', this.handleSubmit.bind(this));
     }
 
     // Show word in list of words

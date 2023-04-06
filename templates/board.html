@@ -27,20 +27,21 @@
                             {{msg}}
                         </div>
                         {% endfor %} {% endif %} {% endwith %}
-
-                        <div class="board">
-                            {% for row in session['board'] %}
-                            <div class="board-row">
-                                {% for cell in row %}
-                                <div class="cell">{{ cell }}</div>
+                        <div id="boggle">
+                            <div class="board">
+                                {% for row in session['board'] %}
+                                <div class="board-row">
+                                    {% for cell in row %}
+                                    <div class="cell">{{ cell }}</div>
+                                    {% endfor %}
+                                </div>
                                 {% endfor %}
                             </div>
-                            {% endfor %}
                         </div>
 
                         <form
                             id="guess-form"
-                            method="get"
+                            method="post"
                             class="add-word row mt-3 gx-3 gy-2 align-items-center justify-content-center"
                         >
                             <div class="col-auto form-floating">
