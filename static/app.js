@@ -16,13 +16,12 @@ async function submitForm() {
 
         // const resp = await axios.post('/check-word', data: { word: word });
 
-        const resp = await axios({
-            method: 'POST',
-            url: '/check-word',
-            data: { word: word },
-        });
+        const resp = await axios.post(
+            '/check-word',
+            new FormData(event.target)
+        );
 
-        console.log(resp.data.result); // find the result in the data
+        console.log('result', resp.data.result); // find the result in the data
 
         // if goes here
         // 'not-word'
