@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 body {
   background-color: #cdd4e4;
 }
@@ -25,4 +26,51 @@ body {
   justify-content: center;
   align-content: center;
   align-items: center;
+}
+
+ul.words-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul.words-list li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  background: #35ab35;
+  color: #fff;
+  padding: 2px 5px;
+  margin: 0 5px 5px 0;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.score-area {
+  font-family: "Press Start 2P", cursive;
+  padding: 10px;
+  background-color: black;
+  color: #4bff4b;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.score-area .score-ui {
+  font-size: 24px;
+}
+.score-area .secs {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.highscore {
+  background-color: rgba(6, 6, 6, 0.0784313725);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 22px;
+}
+.highscore h5 {
+  margin-bottom: 0;
+}
+.highscore span {
+  font-weight: bold;
 }/*# sourceMappingURL=app.css.map */

@@ -10,16 +10,14 @@ toolbar = DebugToolbarExtension(app)
 
 boggle_game = Boggle()
 
-board = boggle_game.make_board()
-
 @app.route('/')
 def home_page():
     """Show hompeage"""
+
+    board = boggle_game.make_board() # regen board every load
     session['board'] = board
     highscore = session.get('highscore', 0) # if none, 0
     numplays = session.get('numplays', 0) # if none, 0
-    #highscore
-    #plays
     return render_template("board.html", board=board, highscore=highscore, numplays=numplays)
 
 @app.route('/check-word', methods=['GET', 'POST'])
@@ -31,11 +29,11 @@ def check_word():
     # json fix
     # data = request.get_json()
     # word = data['word']
-    print('word: ', word)
+    #print('word: ', word)
     board = session.get("board", boggle_game.make_board())
-    print('board:', board)
+    #print('board:', board)
     response = boggle_game.check_valid_word(board, word)
-    print('response:', response)
+    #print('response:', response)
     return jsonify({'result': response})
 
 @app.route('/post-score', methods=['POST'])

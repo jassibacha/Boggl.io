@@ -18,14 +18,13 @@
         {% include "header.html" %}
         <main>
             <div id="boggle" class="container my-5">
-                <div class="row">
-                    <div class="col-sm-12">
-
+                <div class="row justify-content-center">
+                    <div class="col-sm-6">
                         <div class="alert" role="alert"></div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-md-5 col-lg-4">
                         {# {% with messages =
                         get_flashed_messages(with_categories=true) %} {% if
                         messages %} {% for category,msg in messages %}
@@ -46,7 +45,7 @@
                         <form
                             id="guess-form"
                             method="post"
-                            class="add-word row mt-3 gx-3 gy-2 align-items-center justify-content-center"
+                            class="add-word row my-3 gx-3 gy-2 align-items-center justify-content-center"
                         >
                             <div class="col-auto form-floating">
                                 <input
@@ -68,11 +67,14 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="score-area">
-                          <h4>Score: <span class="score"></span></h4>
-                          <h5>Seconds Left: <span class="timer"></span></h5>
-                          <h4>High Score: {{ highscore }} in {{ numplays }} plays</h4>
+                    <div class="col-sm-6 col-md-5 col-lg-4">
+                        <div class="score-area mb-3">
+                          <div class="score-ui">SCORE: <span class="score">0</span></div>
+                          <div class="secs">Seconds Left: <span class="timer">0</span></div>
+                        </div>
+                        <div class="highscore mb-3">
+                          <h5>High Score:</h5>
+                          <span>{{ highscore }} points</span> in <span>{{ numplays }} games</span>
                         </div>
                         <h4>Added Words:</h4>
                         <ul class="words-list"></ul>
