@@ -30,7 +30,7 @@ def check_word():
     # data = request.get_json()
     # word = data['word']
     print('word: ', word)
-    board = session['board']
+    board = session.get("board", boggle_game.make_board())
     print('board:', board)
     response = boggle_game.check_valid_word(board, word)
     print('response:', response)
