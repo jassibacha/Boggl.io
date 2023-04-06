@@ -35,3 +35,19 @@ def check_word():
     response = boggle_game.check_valid_word(board, word)
     print('response:', response)
     return jsonify({'result': response})
+
+@app.route('/post-score', methods=['POST'])
+def post_score():
+    """Post the score, yo"""
+    print('post-score route')
+    score = request.json['score'] # Pull the score json
+    print('score from json:', score)
+    highscore = session.get('highscore', 0) # if none, 0
+    print('highscore:', highscore)
+    numplays = session.get('numplays', 0) # if none, 0
+    print('numplays:', numplays)
+
+    session['numplays'] = numplays + 1 # increment number of plays
+    session['highscore'] = max(score, highscore) # grab whichever is higher
+
+    return jsonify(brokeRecord = score > highscore) # If score is higher than current high score, brokeRecord boolean returns true!

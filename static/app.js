@@ -7,8 +7,11 @@ class BoggleGame {
         this.words = new Set();
         this.board = $('#' + boardId); // Set board to jQuery boardId element
 
+        // console.log('this:', this);
+        // console.log('this.tick:', this.tick);
         // Every 1000ms 'tick'
         this.timer = setInterval(this.tick.bind(this), 1000); //
+        //console.log('this.tick (binded):', this.tick);
 
         $('#guess-form').on('submit', this.handleSubmit.bind(this));
     }
@@ -38,20 +41,40 @@ class BoggleGame {
     }
 
     async tick() {
-        // minus secs(this) by 1
-        // refresh the timer
-        // if secs = 0
-        // clearinterval of the timer
-        // then we'll need to call scoreGame (this? await?)
+        this.secs -= 1; // minus secs(this) by 1
+        this.showTimer(); // refresh the timer
+        if (this.secs === 0) {
+            console.log('We made it to 0 seconds, score the game and stop!');
+            clearInterval(this.timer); // clearinterval of the timer
+            await this.scoreGame();
+        }
     }
 
     async scoreGame() {
-        // hide the form to add words
+        console.log('scoreGame() init');
+        $('.add-word', this.board).hide(); // hide the form to add words
+
         // setup axios call to post score ('/post-score') and send score: this.score
-        // if data brokerecord
-        // new record
-        // else
-        // final score
+        const res = await axios
+            .post('/post-score', { score: this.score })
+            .then((resp) => {
+                console.log('post-score response:', resp);
+                if (resp.data.brokeRecord) {
+                    // Check the brokeRecord JSON from flask route
+                    this.showMessage(
+                        `New High Score: ${this.score}`,
+                        'success'
+                    );
+                } else {
+                    this.showMessage(`Final Score: ${this.score}`, 'success');
+                }
+                // new record
+                // else
+                // final score
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     async handleSubmit(evt) {
