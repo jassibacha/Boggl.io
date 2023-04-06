@@ -1,6 +1,5 @@
-async () => {
+async function submitForm() {
     const $form = $('#guess-form');
-    const $guess = $('#word');
 
     // add an empty set called words
 
@@ -8,18 +7,21 @@ async () => {
     $form.on('submit', async (event) => {
         event.preventDefault(); // Prevent page refresh
 
-        const word = $guess.val(); // Get the guessed word
+        const $word = $('.word');
+        const word = $word.val(); // Get the guessed word
         if (!word) return; // if no word stop
 
         // check if words already has the word const, if so show an error message
 
-        const resp = await axios.get('/check-word', { params: { word: word } });
+        const resp = await axios.post('/check-word', { word: word });
 
-        print(resp); // find the result in the data
+        console.log(resp); // find the result in the data
 
         // if goes here
         // 'not-word'
         // 'not-on-board'
         // else add the word
     });
-};
+}
+
+submitForm();

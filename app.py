@@ -20,10 +20,13 @@ def home_page():
     #plays
     return render_template("home.html",board=board)
 
-@app.route('/check-word')
+@app.route('/check-word', methods=['POST'])
 def check_word():
     """Check for the word"""
-    word = request.args['word']
+    word = request.form['word']
+    print('word: ', word)
     board = session['board']
+    print('board:', board)
     response = boggle_game.check_valid_word(board, word)
+    print('response:', response)
     return jsonify({'result': response})
