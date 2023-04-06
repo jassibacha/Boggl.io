@@ -1,22 +1,28 @@
 class BoggleGame {
     constructor(boardId, secs = 60) {
         this.secs = secs; // Set game length
-        // this.showTimer()
-        // this.score = 0
+        this.showTimer();
+
+        this.score = 0;
         this.words = new Set();
         this.board = $('#' + boardId); // Set board to jQuery boardId element
 
         // Every 1000ms 'tick'
-        // this.timer = setInterval(...) //bind this.tick to this
+        this.timer = setInterval(this.tick.bind(this), 1000); //
 
         $('#guess-form').on('submit', this.handleSubmit.bind(this));
     }
 
     // Show word in list of words
-    showWord(word) {}
+    showWord(word) {
+        $('.words-list', this.board).append($('<li>', { text: word }));
+    }
 
     // Show score in HTML
-    showScore() {}
+    showScore() {
+        console.log('show score:', this.score);
+        $('.score', this.board).text(this.score);
+    }
 
     // Show status messages
     showMessage(msg, cls) {
@@ -24,6 +30,28 @@ class BoggleGame {
             .text(msg)
             .removeClass()
             .addClass(`alert alert-${cls}`);
+    }
+
+    showTimer() {
+        // update .timer txt to show remaining seconds
+        $('.timer', this.board).text(this.secs);
+    }
+
+    async tick() {
+        // minus secs(this) by 1
+        // refresh the timer
+        // if secs = 0
+        // clearinterval of the timer
+        // then we'll need to call scoreGame (this? await?)
+    }
+
+    async scoreGame() {
+        // hide the form to add words
+        // setup axios call to post score ('/post-score') and send score: this.score
+        // if data brokerecord
+        // new record
+        // else
+        // final score
     }
 
     async handleSubmit(evt) {
@@ -39,73 +67,63 @@ class BoggleGame {
         // Make sure that the word doesn't exist in words set
         if (this.words.has(word)) {
             this.showMessage(
-                `You already found ${word}, try a new one!`,
-                'error'
+                `You already found ${word}, try a new word!`,
+                'warning'
             );
             return;
         }
-        console.log('Axios get starting');
+
+        //console.log('Axios V2 get starting');
         // Check for the word
-        const resp = await axios
+        const res = await axios
             .get('/check-word', { params: { word: word } })
-            .then((response) => {
-                console.log(response.data);
-                if (response.data.result === 'not-word') {
-                    console.log('not a word');
-                } else if (response.data.result === 'not-on-board') {
-                    console.log('not-on-board');
+            .then((resp) => {
+                if (resp.data.result === 'not-word') {
+                    console.log(`${word} isn't on the board.`);
+                    //console.log('this:', this);
+                    this.showMessage(`${word} isn't a word, sorry!`, 'danger');
+                } else if (resp.data.result === 'not-on-board') {
+                    console.log(`${word} isn't on the board.`);
+                    //console.log('this:', this);
+                    this.showMessage(`${word} isn't on the board.`, 'danger');
                 } else {
-                    console.log('found a word!');
+                    console.log(`${word} is on the board! Nice!`);
+                    //console.log('this:', this);
+                    this.showWord(word);
+                    this.score += word.length; // Add to score
+                    this.showScore(); // Update score on front-end
+                    this.words.add(word); // Add to the words set
+                    this.showMessage(`Added ${word}!`, 'success');
                 }
             })
             .catch((error) => {
                 console.log(error);
             });
 
-        // console.log("Response Data:", resp.data);
-        // console.log("Response Data Result:", resp.data.result);
+        // console.log('Axios V2 get starting');
+        // // Check for the word
+        // const resp = await axios.get('/check-word', { params: { word: word } });
 
-        // if goes here
-        // if (resp.data.result === "not-word") {
-        // } else if (resp.data.result === "not-on-board") {
+        // console.log(resp.data);
+        // if (resp.data.result === 'not-word') {
+        //     console.log(`${word} isn't on the board.`);
+        //     //console.log('this:', this);
+        //     this.showMessage(`${word} isn't a word, sorry!`, 'danger');
+        // } else if (resp.data.result === 'not-on-board') {
+        //     console.log(`${word} isn't on the board.`);
+        //     //console.log('this:', this);
+        //     this.showMessage(`${word} isn't on the board.`, 'danger');
         // } else {
+        //     console.log(`${word} is on the board! Nice!`);
+        //     //console.log('this:', this);
+        //     this.showWord(word);
+        //     this.score += word.length; // Add to score
+        //     this.showScore(); // Update score on front-end
+        //     this.words.add(word); // Add to the words set
+        //     this.showMessage(`Added ${word}!`, 'success');
         // }
 
         // Empty the text field and focus on it
         $word.val('').focus();
     }
 }
-
-// async function submitForm() {
-//     const $form = $('#guess-form');
-
-//     // add an empty set called words
-
-//     // Form submission listener
-//     $form.on('submit', async (event) => {
-//         event.preventDefault(); // Prevent page refresh
-
-//         const $word = $('.word');
-//         const word = $word.val(); // Get the guessed word
-//         console.log('word:', word);
-//         if (!word) return; // if no word stop
-
-//         // check if words already has the word const, if so show an error message
-
-//         // const resp = await axios.post('/check-word', data: { word: word });
-
-//         const resp = await axios.post(
-//             '/check-word',
-//             new FormData(event.target)
-//         );
-
-//         console.log('result', resp.data.result); // find the result in the data
-
-//         // if goes here
-//         // 'not-word'
-//         // 'not-on-board'
-//         // else add the word
-//     });
-// }
-
-// submitForm();
