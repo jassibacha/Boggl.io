@@ -24,6 +24,9 @@ def home_page():
 def check_word():
     """Check for the word"""
     word = request.form['word']
+    # json fix
+    # data = request.get_json()
+    # word = data['word']
     print('word: ', word)
     board = session['board']
     print('board:', board)
