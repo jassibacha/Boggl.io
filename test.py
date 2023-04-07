@@ -62,7 +62,9 @@ class BoggleTestCase(TestCase):
             self.assertEqual(response.json['result'], 'not-word')
 
     def test_post_score_sends_json(self):
+        """Make sure that /post-score is receiving json correctly"""
         with self.client as client:
             response = client.post('/post-score', json={'score': 5}) # send json score: 5
             self.assertEqual(response.status_code, 200) # confirm its a 200 response
             self.assertEqual(response.content_type, 'application/json') # confirm its json!
+            
